@@ -4,13 +4,13 @@
 
 import { apiClient } from '../client';
 import { endpoints } from '../endpoints';
-import type { ApiResponse, Product } from '@/types/api';
+import type { ApiResponse, StorefrontProduct } from '@/types/api';
 
 export interface WishlistItem {
   id: string;
   product_id: string;
   variant_id?: string;
-  product: Product;
+  product: StorefrontProduct;
   created_at: string;
 }
 
