@@ -4,6 +4,20 @@ const nextConfig = {
   experimental: {
     // Next.js 15 features
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3001',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
   // Multi-tenant: permitir subdominios
   async headers() {
     return [

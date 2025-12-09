@@ -64,5 +64,5 @@
 - Build y dev server funcionando
 
 ### Próximos Pasos
-1. Feature 3.1: Construir componentes layout (Header, Footer)
-2. Feature 3.2: Crear Homepage con Hero y Featured Products
+1. Feature 3.2: Crear Homepage con Hero y Featured Products
+2. Feature 3.3: Construir Product Listing Page con filtros
