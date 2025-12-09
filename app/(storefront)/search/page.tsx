@@ -35,8 +35,7 @@ function SearchResultsContent() {
       }
       return await searchService.search({
         q: query,
-        locale: tenant?.default_locale,
-        currency: tenant?.default_currency,
+        limit: 20,
       });
     },
     enabled: !!query.trim() && !!tenant,

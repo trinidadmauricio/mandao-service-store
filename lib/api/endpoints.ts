@@ -24,6 +24,7 @@ export const endpoints = {
     categories: `${API_BASE}/storefront/categories`,
     category: (slug: string) => `${API_BASE}/storefront/categories/${slug}`,
     brands: `${API_BASE}/storefront/brands`,
+    search: `${API_BASE}/storefront/search`,
   },
 
   // Cart
@@ -58,9 +59,5 @@ export const endpoints = {
       `${API_BASE}/wishlist/${productId}${variantId ? `?variant_id=${variantId}` : ''}`,
   },
 
-  // Search
-  search: {
-    products: `${API_BASE}/storefront/search`,
-  },
 } as const;
 
