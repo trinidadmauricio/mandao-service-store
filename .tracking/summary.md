@@ -53,7 +53,11 @@
 - Cart API completa con validaciones de stock
 - Arquitectura Clean Architecture respetada en todos los dominios
 
+### Frontend (mandao-service-store)
+- Proyecto Next.js 15 inicializado con TypeScript
+- Tailwind CSS 4 configurado
+- Build y dev server funcionando
+
 ### Próximos Pasos
-1. Feature 1.5: Cart coupon/merge
-2. Feature 1.6: Customer Profile API
-3. Feature 1.7: Customer Addresses API
+1. Feature 2.2: Crear cliente API y definiciones de tipos
+2. Feature 2.3: Implementar middleware multi-tenant
