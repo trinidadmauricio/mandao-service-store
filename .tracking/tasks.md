@@ -43,10 +43,10 @@
 
 - [x] **5.1** Crear páginas Login y Register
 - [x] **5.2** Implementar flujo de Password reset
-- [ ] **5.3** Construir Account dashboard
-- [ ] **5.4** Agregar páginas Order history
-- [ ] **5.5** Implementar Address management
-- [ ] **5.6** Agregar funcionalidad Wishlist
+- [x] **5.3** Construir Account dashboard
+- [x] **5.4** Agregar páginas Order history
+- [x] **5.5** Implementar Address management
+- [x] **5.6** Agregar funcionalidad Wishlist
 
 ### Fase 6: Template System
 

@@ -11,12 +11,12 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
 import { ProductCard } from '@/components/product/product-card';
-import { useCart } from '@/providers/cart-provider';
+import { useCartStore } from '@/lib/store/cart-store';
 import Link from 'next/link';
 
 export default function WishlistPage() {
   const queryClient = useQueryClient();
-  const { addItem } = useCart();
+  const addItem = useCartStore((state) => state.addItem);
 
   const { data: wishlistItems, isLoading } = useQuery({
     queryKey: ['wishlist'],
@@ -33,7 +33,11 @@ export default function WishlistPage() {
 
   const handleAddToCart = async (productId: string, variantId?: string) => {
     try {
-      await addItem(productId, variantId, 1);
+      await addItem({
+        product_id: productId,
+        variant_id: variantId,
+        quantity: 1,
+      });
       // Opcional: remover de wishlist después de agregar al carrito
       // await removeMutation.mutateAsync({ productId, variantId });
     } catch (error) {
