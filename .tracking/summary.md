@@ -64,5 +64,5 @@
 - Build y dev server funcionando
 
 ### Próximos Pasos
-1. Feature 2.2: Crear cliente API y definiciones de tipos
-2. Feature 2.3: Implementar middleware multi-tenant
+1. Feature 3.1: Construir componentes layout (Header, Footer)
+2. Feature 3.2: Crear Homepage con Hero y Featured Products

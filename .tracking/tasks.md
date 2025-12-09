@@ -22,7 +22,7 @@
 - [x] **2.2** Crear cliente API y definiciones de tipos
 - [x] **2.3** Implementar middleware multi-tenant
 - [x] **2.4** Configurar providers (Tenant, Auth, Query, Cart)
-- [ ] **2.5** Inicializar componentes shadcn/ui
+- [x] **2.5** Inicializar componentes shadcn/ui
 
 ### Fase 3: Core Storefront
 
