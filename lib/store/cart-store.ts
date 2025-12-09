@@ -35,11 +35,21 @@ export const useCartStore = create<CartStore>()(
         try {
           const cart = await cartService.getCart();
           set({ cart, isLoading: false });
-        } catch (error) {
-          set({
-            error: error instanceof Error ? error.message : 'Failed to fetch cart',
-            isLoading: false,
-          });
+        } catch (error: any) {
+          // No mostrar error si es un 404 (carrito vacío) o si no hay tenant
+          const isNotFound = error?.response?.status === 404;
+          const isNoTenant = error?.response?.status === 400 && 
+            (error?.response?.data?.message?.includes('Tenant') || 
+             error?.response?.data?.message?.includes('tenant'));
+          
+          if (isNotFound || isNoTenant) {
+            set({ cart: null, isLoading: false, error: null });
+          } else {
+            set({
+              error: error instanceof Error ? error.message : 'Failed to fetch cart',
+              isLoading: false,
+            });
+          }
         }
       },
 
