@@ -50,8 +50,8 @@
 
 ### Fase 6: Template System
 
-- [ ] **6.1** Crear infraestructura de Template system
-- [ ] **6.2** Implementar Classic template
+- [x] **6.1** Crear infraestructura de Template system
+- [x] **6.2** Implementar Classic template
 
 ---
 

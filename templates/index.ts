@@ -33,7 +33,10 @@ export interface TemplateConfig {
 }
 
 // Registry de templates
-export const templates: Record<TemplateName, TemplateConfig> = {
+// Solo incluir templates implementados
+export const templates: Partial<Record<TemplateName, TemplateConfig>> & {
+  classic: TemplateConfig;
+} = {
   classic: classicTemplate,
   // modern: modernTemplate, // TODO: Implementar
   // minimal: minimalTemplate, // TODO: Implementar
