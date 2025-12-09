@@ -17,11 +17,11 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const { storefrontConfig } = useTenant();
+  const { storefront } = useTenant();
 
   const themeValue = useMemo(() => {
     // Obtener template desde la configuración del storefront
-    const templateName = (storefrontConfig?.storefront?.theme_config as any)?.template as
+    const templateName = (storefront?.theme_config as any)?.template as
       | TemplateName
       | undefined;
 
@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       template: config.name,
       config,
     };
-  }, [storefrontConfig]);
+  }, [storefront]);
 
   return (
     <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>
