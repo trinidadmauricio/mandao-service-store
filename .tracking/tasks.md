@@ -41,7 +41,7 @@
 
 ### Fase 5: Authentication & Account
 
-- [ ] **5.1** Crear páginas Login y Register
+- [x] **5.1** Crear páginas Login y Register
 - [ ] **5.2** Implementar flujo de Password reset
 - [ ] **5.3** Construir Account dashboard
 - [ ] **5.4** Agregar páginas Order history

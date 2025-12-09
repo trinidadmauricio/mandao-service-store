@@ -30,6 +30,14 @@ function LoginPageContent() {
   const { login, isAuthenticated, isLoading: authLoading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [registered, setRegistered] = useState(false);
+
+  // Check if user just registered
+  useEffect(() => {
+    if (searchParams.get('registered') === 'true') {
+      setRegistered(true);
+    }
+  }, [searchParams]);
 
   const {
     register,
@@ -84,6 +92,11 @@ function LoginPageContent() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {registered && (
+              <div className="rounded-lg bg-green-50 border border-green-200 p-3 text-sm text-green-800">
+                Cuenta creada exitosamente. Por favor inicia sesión.
+              </div>
+            )}
             {error && (
               <div className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
                 {error}
