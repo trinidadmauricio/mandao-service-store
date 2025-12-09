@@ -94,7 +94,7 @@ export default function WishlistPage() {
                   size="sm"
                   variant="secondary"
                   className="h-8 w-8 p-0"
-                  onClick={() => handleAddToCart(item.product.id, item.variant_id)}
+                  onClick={() => handleAddToCart(item.product.id, item.variant_id || undefined)}
                   title="Agregar al carrito"
                 >
                   <ShoppingCart className="h-4 w-4" />
@@ -106,7 +106,7 @@ export default function WishlistPage() {
                   onClick={() =>
                     removeMutation.mutate({
                       productId: item.product.id,
-                      variantId: item.variant_id,
+                      variantId: item.variant_id || undefined,
                     })
                   }
                   disabled={removeMutation.isPending}
