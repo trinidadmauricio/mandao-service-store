@@ -8,14 +8,17 @@ import { QueryProvider } from './query-provider';
 import { TenantProvider } from './tenant-provider';
 import { AuthProvider } from './auth-provider';
 import { CartProvider } from './cart-provider';
+import { ThemeProvider } from './theme-provider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryProvider>
       <TenantProvider>
-        <AuthProvider>
-          <CartProvider>{children}</CartProvider>
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <CartProvider>{children}</CartProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </TenantProvider>
     </QueryProvider>
   );
