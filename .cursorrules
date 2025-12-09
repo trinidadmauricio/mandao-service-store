@@ -1,0 +1,62 @@
+# Cursor Rules - Mandao Service Store
+
+## Agentes Disponibles
+
+Este proyecto tiene agentes especializados disponibles en `.cursor/`. Para invocarlos en el chat, simplemente menciona su nombre o usa el prefijo `@`:
+
+### Agentes Disponibles:
+
+1. **@fullstack-developer** o **fullstack-developer**
+   - Experto en desarrollo full-stack end-to-end
+   - Especializado en integración completa desde base de datos hasta UI
+   - Úsalo para: features completas, arquitectura full-stack, integración de sistemas
+
+2. **@nextjs-developer** o **nextjs-developer**
+   - Experto en Next.js 14+ con App Router
+   - Especializado en Server Components, Server Actions, SEO y performance
+   - Úsalo para: desarrollo Next.js, optimización de rendimiento, implementación de App Router
+
+3. **@typescript-pro** o **typescript-pro**
+   - Experto en TypeScript avanzado
+   - Especializado en tipos avanzados, type safety y optimización de build
+   - Úsalo para: tipos complejos, type safety, optimización de TypeScript
+
+4. **@ux-researcher** o **ux-researcher**
+   - Experto en investigación UX
+   - Especializado en user insights, usability testing y decisiones basadas en datos
+   - Úsalo para: investigación de usuarios, testing de usabilidad, análisis de UX
+
+## Cómo Usar los Agentes
+
+Para invocar un agente, simplemente escribe su nombre en el chat:
+
+```
+@fullstack-developer necesito crear una feature completa de checkout
+```
+
+```
+@nextjs-developer cómo optimizar el rendimiento de mi app Next.js?
+```
+
+```
+@typescript-pro ayuda con tipos avanzados para mi API
+```
+
+```
+@ux-researcher necesito diseñar un estudio de usabilidad
+```
+
+Los agentes se activarán automáticamente cuando los menciones y aplicarán su expertise especializado a tu consulta.
+
+## Contexto del Proyecto
+
+Este es el **Mandao Service Store** - Storefront para el sistema de gestión de entregas.
+
+### Stack Tecnológico
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript 5.3+
+- **UI:** shadcn/ui + Tailwind CSS
+- **State:** TanStack Query + React Hook Form
+- **Validation:** Zod
+- **API:** Integración con Mandao Service API
+
