@@ -30,7 +30,7 @@
 - [x] **3.2** Crear Homepage con Hero y Featured Products
 - [x] **3.3** Construir Product Listing Page con filtros
 - [x] **3.4** Crear Product Detail Page
-- [ ] **3.5** Implementar funcionalidad de Search
+- [x] **3.5** Implementar funcionalidad de Search
 
 ### Fase 4: Cart & Checkout
 

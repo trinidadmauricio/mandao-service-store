@@ -4,11 +4,12 @@
 
 'use client';
 
-import Link from 'next/link';
+import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCartStore } from '@/lib/store/cart-store';
+import { CartDrawer } from '@/components/cart/cart-drawer';
 import { cn } from '@/lib/utils';
 
 interface CartIconProps {
@@ -16,11 +17,18 @@ interface CartIconProps {
 }
 
 export function CartIcon({ className }: CartIconProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const totalItems = useCartStore((state) => state.getTotalItems());
 
   return (
-    <Link href="/cart" aria-label="Ver carrito">
-      <Button variant="ghost" size="icon" className={cn('relative', className)}>
+    <>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn('relative', className)}
+        onClick={() => setIsOpen(true)}
+        aria-label="Ver carrito"
+      >
         <ShoppingCart className="h-5 w-5" />
         {totalItems > 0 && (
           <Badge
@@ -33,7 +41,8 @@ export function CartIcon({ className }: CartIconProps) {
         )}
         <span className="sr-only">Carrito de compras</span>
       </Button>
-    </Link>
+      <CartDrawer open={isOpen} onOpenChange={setIsOpen} />
+    </>
   );
 }
 
