@@ -47,10 +47,13 @@ export function ProductInfo({ product, currency }: ProductInfoProps) {
   );
 
   const wishlistMutation = useMutation({
-    mutationFn: () =>
-      isInWishlist
-        ? wishlistService.removeFromWishlist(product.id, selectedVariantId || undefined)
-        : wishlistService.addToWishlist(product.id, selectedVariantId || undefined),
+    mutationFn: async () => {
+      if (isInWishlist) {
+        await wishlistService.removeFromWishlist(product.id, selectedVariantId || undefined);
+      } else {
+        await wishlistService.addToWishlist(product.id, selectedVariantId || undefined);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['wishlist'] });
     },

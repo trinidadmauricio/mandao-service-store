@@ -41,10 +41,13 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const isInWishlist = wishlistItems?.some((item) => item.product_id === product.id);
 
   const wishlistMutation = useMutation({
-    mutationFn: () =>
-      isInWishlist
-        ? wishlistService.removeFromWishlist(product.id)
-        : wishlistService.addToWishlist(product.id),
+    mutationFn: async () => {
+      if (isInWishlist) {
+        await wishlistService.removeFromWishlist(product.id);
+      } else {
+        await wishlistService.addToWishlist(product.id);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['wishlist'] });
     },
