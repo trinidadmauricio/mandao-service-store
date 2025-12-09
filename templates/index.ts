@@ -57,6 +57,7 @@ export function getTemplateByName(name: string | null | undefined): TemplateConf
   if (!name || !(name in templates)) {
     return templates.classic;
   }
-  return templates[name as TemplateName];
+  const template = templates[name as TemplateName];
+  return template || templates.classic;
 }
 
