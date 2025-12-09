@@ -9,7 +9,7 @@
 - [x] **1.2** Public Categories API - usa Category (retail)
 - [x] **1.3** Public Brands API - usa Brand (retail)
 - [x] **1.4** Cart API core - usa Cart, CartItem, Product (retail)
-- [ ] **1.5** Cart coupon/merge - usa Coupon (retail)
+- [x] **1.5** Cart coupon/merge - usa Coupon (retail)
 - [x] **1.6** Customer Profile API - usa User (shared)
 - [x] **1.7** Customer Addresses API - usa CustomerAddress (shared)
 - [x] **1.8** Customer Orders API - usa Order, OrderItem (delivery)
