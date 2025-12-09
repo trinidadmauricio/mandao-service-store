@@ -56,6 +56,11 @@
 ### Frontend (mandao-service-store)
 - Proyecto Next.js 15 inicializado con TypeScript
 - Tailwind CSS 4 configurado
+- Cliente API con interceptors (JWT, tenant, session)
+- Tipos TypeScript para todas las respuestas
+- Middleware multi-tenant implementado
+- Providers configurados: Query, Tenant, Auth, Cart
+- Zustand store para carrito con persistencia
 - Build y dev server funcionando
 
 ### Próximos Pasos

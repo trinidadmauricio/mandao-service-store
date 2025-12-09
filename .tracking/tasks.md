@@ -21,7 +21,7 @@
 - [x] **2.1** Inicializar proyecto Next.js 15 con TypeScript y Tailwind
 - [x] **2.2** Crear cliente API y definiciones de tipos
 - [x] **2.3** Implementar middleware multi-tenant
-- [ ] **2.4** Configurar providers (Tenant, Auth, Query, Cart)
+- [x] **2.4** Configurar providers (Tenant, Auth, Query, Cart)
 - [ ] **2.5** Inicializar componentes shadcn/ui
 
 ### Fase 3: Core Storefront
