@@ -10,11 +10,11 @@
 - [x] **1.3** Public Brands API - usa Brand (retail)
 - [x] **1.4** Cart API core - usa Cart, CartItem, Product (retail)
 - [ ] **1.5** Cart coupon/merge - usa Coupon (retail)
-- [ ] **1.6** Customer Profile API - usa User (shared)
-- [ ] **1.7** Customer Addresses API - usa CustomerAddress (shared)
-- [ ] **1.8** Customer Orders API - usa Order, OrderItem (delivery)
-- [ ] **1.9** Wishlist API - usa WishlistItem, Product (retail)
-- [ ] **1.10** Search API - usa Product, Category, Brand (retail)
+- [x] **1.6** Customer Profile API - usa User (shared)
+- [x] **1.7** Customer Addresses API - usa CustomerAddress (shared)
+- [x] **1.8** Customer Orders API - usa Order, OrderItem (delivery)
+- [x] **1.9** Wishlist API - usa WishlistItem, Product (retail)
+- [x] **1.10** Search API - usa Product, Category, Brand (retail)
 
 ### Fase 2: Frontend Foundation (mandao-service-store)
 
