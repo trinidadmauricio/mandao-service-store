@@ -215,6 +215,39 @@ export interface Order {
 
 export interface WishlistItem {
   id: string;
+  product_id: string;
+  variant_id?: string;
+  product: StorefrontProduct;
+  created_at: string;
+}
+
+// ============================================
+// Customer Address
+// ============================================
+
+export interface CustomerAddress {
+  id: string;
+  tenant_id: string;
+  customer_id: string;
+  label: string;
+  recipient_name: string;
+  phone: string;
+  street: string;
+  street_line_2?: string;
+  city: string;
+  state: string;
+  zip_code: string;
+  country: string;
+  lat?: number;
+  lng?: number;
+  instructions?: string;
+  is_default: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WishlistItem {
+  id: string;
   tenant_id: string;
   customer_id: string;
   product_id: string;

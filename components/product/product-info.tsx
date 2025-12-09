@@ -4,7 +4,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ShoppingCart, Heart, Share2 } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cart-store';
+import { useAuth } from '@/providers/auth-provider';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { wishlistService } from '@/lib/api/services/wishlist.service';
 import type { StorefrontProductDetail } from '@/types/api';
 import { ProductVariantSelector } from './product-variant-selector';
 import { cn } from '@/lib/utils';
@@ -23,12 +26,35 @@ interface ProductInfoProps {
 
 export function ProductInfo({ product, currency }: ProductInfoProps) {
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
+  const queryClient = useQueryClient();
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
     product.variants.length > 0 ? product.variants[0]?.id || null : null
   );
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
+
+  // Check if product is in wishlist
+  const { data: wishlistItems } = useQuery({
+    queryKey: ['wishlist'],
+    queryFn: () => wishlistService.getWishlist(),
+    enabled: isAuthenticated,
+  });
+
+  const isInWishlist = wishlistItems?.some(
+    (item) => item.product_id === product.id && item.variant_id === selectedVariantId
+  );
+
+  const wishlistMutation = useMutation({
+    mutationFn: () =>
+      isInWishlist
+        ? wishlistService.removeFromWishlist(product.id, selectedVariantId || undefined)
+        : wishlistService.addToWishlist(product.id, selectedVariantId || undefined),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+    },
+  });
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-ES', {
@@ -167,8 +193,21 @@ export function ProductInfo({ product, currency }: ProductInfoProps) {
         >
           Comprar Ahora
         </Button>
-        <Button variant="outline" size="icon" aria-label="Agregar a favoritos">
-          <Heart className="h-5 w-5" />
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={isInWishlist ? 'Remover de favoritos' : 'Agregar a favoritos'}
+          onClick={() => {
+            if (!isAuthenticated) {
+              router.push('/login?redirect=' + encodeURIComponent(router.asPath));
+              return;
+            }
+            wishlistMutation.mutate();
+          }}
+          disabled={wishlistMutation.isPending}
+          className={cn(isInWishlist && 'text-red-500')}
+        >
+          <Heart className={cn('h-5 w-5', isInWishlist && 'fill-current')} />
         </Button>
         <Button variant="outline" size="icon" aria-label="Compartir">
           <Share2 className="h-5 w-5" />

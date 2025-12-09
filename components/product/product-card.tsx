@@ -12,7 +12,11 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, Heart } from 'lucide-react';
 import type { StorefrontProduct } from '@/types/api';
 import { useCartStore } from '@/lib/store/cart-store';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/providers/auth-provider';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { wishlistService } from '@/lib/api/services/wishlist.service';
 import { cn } from '@/lib/utils';
 
 interface ProductCardProps {
@@ -21,8 +25,30 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+  const queryClient = useQueryClient();
   const [isAdding, setIsAdding] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
+
+  // Check if product is in wishlist
+  const { data: wishlistItems } = useQuery({
+    queryKey: ['wishlist'],
+    queryFn: () => wishlistService.getWishlist(),
+    enabled: isAuthenticated,
+  });
+
+  const isInWishlist = wishlistItems?.some((item) => item.product_id === product.id);
+
+  const wishlistMutation = useMutation({
+    mutationFn: () =>
+      isInWishlist
+        ? wishlistService.removeFromWishlist(product.id)
+        : wishlistService.addToWishlist(product.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+    },
+  });
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -115,8 +141,23 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           <ShoppingCart className="mr-2 h-4 w-4" />
           {isAdding ? 'Agregando...' : 'Agregar'}
         </Button>
-        <Button variant="outline" size="icon" aria-label="Agregar a favoritos">
-          <Heart className="h-4 w-4" />
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={isInWishlist ? 'Remover de favoritos' : 'Agregar a favoritos'}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!isAuthenticated) {
+              router.push('/login?redirect=' + encodeURIComponent(router.asPath));
+              return;
+            }
+            wishlistMutation.mutate();
+          }}
+          disabled={wishlistMutation.isPending}
+          className={cn(isInWishlist && 'text-red-500')}
+        >
+          <Heart className={cn('h-4 w-4', isInWishlist && 'fill-current')} />
         </Button>
       </CardFooter>
     </Card>
