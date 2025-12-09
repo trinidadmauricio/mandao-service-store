@@ -11,8 +11,8 @@ export const endpoints = {
     login: `${API_BASE}/auth/login`,
     register: `${API_BASE}/auth/register`,
     refresh: `${API_BASE}/auth/refresh`,
-    forgotPassword: `${API_BASE}/auth/forgot-password`,
-    resetPassword: `${API_BASE}/auth/reset-password`,
+    forgotPassword: `${API_BASE}/auth/password/reset-request`,
+    resetPassword: `${API_BASE}/auth/password/reset`,
     verifyEmail: `${API_BASE}/auth/verify-email`,
   },
 
