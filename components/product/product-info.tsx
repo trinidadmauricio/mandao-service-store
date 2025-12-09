@@ -5,7 +5,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +26,7 @@ interface ProductInfoProps {
 
 export function ProductInfo({ product, currency }: ProductInfoProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const { isAuthenticated } = useAuth();
   const queryClient = useQueryClient();
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
@@ -202,7 +203,7 @@ export function ProductInfo({ product, currency }: ProductInfoProps) {
           aria-label={isInWishlist ? 'Remover de favoritos' : 'Agregar a favoritos'}
           onClick={() => {
             if (!isAuthenticated) {
-              router.push('/login?redirect=' + encodeURIComponent(router.asPath));
+              router.push('/login?redirect=' + encodeURIComponent(pathname));
               return;
             }
             wishlistMutation.mutate();

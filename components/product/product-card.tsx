@@ -13,7 +13,7 @@ import { ShoppingCart, Heart } from 'lucide-react';
 import type { StorefrontProduct } from '@/types/api';
 import { useCartStore } from '@/lib/store/cart-store';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/providers/auth-provider';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { wishlistService } from '@/lib/api/services/wishlist.service';
@@ -26,6 +26,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const { isAuthenticated } = useAuth();
   const queryClient = useQueryClient();
   const [isAdding, setIsAdding] = useState(false);
@@ -152,7 +153,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
             e.preventDefault();
             e.stopPropagation();
             if (!isAuthenticated) {
-              router.push('/login?redirect=' + encodeURIComponent(router.asPath));
+              router.push('/login?redirect=' + encodeURIComponent(pathname));
               return;
             }
             wishlistMutation.mutate();
