@@ -213,14 +213,6 @@ export interface Order {
 // Wishlist
 // ============================================
 
-export interface WishlistItem {
-  id: string;
-  product_id: string;
-  variant_id?: string;
-  product: StorefrontProduct;
-  created_at: string;
-}
-
 
 export interface WishlistItem {
   id: string;
