@@ -4,13 +4,14 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useCartStore } from '@/lib/store/cart-store';
 import { checkoutService, type CheckoutRequest } from '@/lib/api/services/checkout.service';
+import { paymentService } from '@/lib/api/services/payment.service';
 import { useTenant } from '@/providers/tenant-provider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -53,12 +54,23 @@ interface Branch {
   address: string;
 }
 
-export default function CheckoutPage() {
+function CheckoutPageContent() {
   const router = useRouter();
   const { tenant, storefront } = useTenant();
   const { cart, fetchCart, getSubtotal } = useCartStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [canceled, setCanceled] = useState(false);
+
+  // Check if checkout was canceled from URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('canceled') === 'true') {
+      setCanceled(true);
+      // Remove canceled param from URL
+      router.replace('/checkout', { scroll: false });
+    }
+  }, [router]);
 
   const {
     register,
@@ -171,6 +183,27 @@ export default function CheckoutPage() {
       // Clear cart
       await fetchCart();
 
+      // Create Stripe checkout session
+      try {
+        const baseUrl = window.location.origin;
+        const stripeCheckout = await paymentService.createCheckout({
+          order_id: result.order_id,
+          tenant_id: tenant.id,
+          success_url: `${baseUrl}/orders/${result.order_id}?success=true`,
+          cancel_url: `${baseUrl}/checkout?canceled=true`,
+        });
+
+        // Redirect to Stripe Checkout
+        if (stripeCheckout.checkout_url) {
+          window.location.href = stripeCheckout.checkout_url;
+          return;
+        }
+      } catch (paymentError) {
+        console.error('Error creating Stripe checkout:', paymentError);
+        // If Stripe fails, still redirect to order confirmation
+        // The order was created successfully, payment can be handled later
+      }
+
       // Redirect to order confirmation
       router.push(`/orders/${result.order_id}?success=true`);
     } catch (err) {
@@ -193,6 +226,12 @@ export default function CheckoutPage() {
       </Link>
 
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+
+      {canceled && (
+        <div className="mb-6 rounded-lg bg-yellow-50 border border-yellow-200 p-4 text-sm text-yellow-800">
+          El pago fue cancelado. Puedes intentar nuevamente completando el formulario.
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -381,6 +420,10 @@ export default function CheckoutPage() {
                   <span className="font-bold">Total</span>
                   <span className="font-bold">{formatPrice(subtotal)}</span>
                 </div>
+                <div className="mt-4 rounded-lg bg-blue-50 border border-blue-200 p-3 text-xs text-blue-800">
+                  <p className="font-semibold mb-1">Pago seguro con Stripe</p>
+                  <p>Serás redirigido a Stripe para completar el pago de forma segura.</p>
+                </div>
                 {error && (
                   <div className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
                     {error}
@@ -402,6 +445,14 @@ export default function CheckoutPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<div className="container py-8">Cargando...</div>}>
+      <CheckoutPageContent />
+    </Suspense>
   );
 }
 

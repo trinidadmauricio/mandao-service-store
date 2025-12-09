@@ -36,7 +36,7 @@
 
 - [x] **4.1** Crear Cart store con Zustand
 - [x] **4.2** Construir Cart drawer y page UI
-- [ ] **4.3** Implementar flujo de Checkout
+- [x] **4.3** Implementar flujo de Checkout
 - [ ] **4.4** Integrar pago con Stripe
 
 ### Fase 5: Authentication & Account
