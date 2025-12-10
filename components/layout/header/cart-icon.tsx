@@ -4,7 +4,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,13 @@ interface CartIconProps {
 
 export function CartIcon({ className }: CartIconProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const totalItems = useCartStore((state) => state.getTotalItems());
+
+  // Evitar mismatch de hidratación: solo mostrar badge después de montar
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <>
@@ -30,7 +36,7 @@ export function CartIcon({ className }: CartIconProps) {
         aria-label="Ver carrito"
       >
         <ShoppingCart className="h-5 w-5" />
-        {totalItems > 0 && (
+        {isMounted && totalItems > 0 && (
           <Badge
             variant="destructive"
             className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"

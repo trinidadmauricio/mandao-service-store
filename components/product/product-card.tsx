@@ -38,13 +38,8 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
     queryFn: () => wishlistService.getWishlist(),
     enabled: isAuthenticated,
     retry: false, // No reintentar si falla con 401
-    onError: (error: any) => {
-      // Si es 401, el usuario no está autenticado, simplemente no mostrar wishlist
-      if (error?.response?.status === 401) {
-        // Silenciar el error, el usuario simplemente no tiene wishlist
-        return;
-      }
-    },
+    // En React Query v5, onError ya no está disponible
+    // Los errores 401 se manejan silenciosamente con retry: false
   });
 
   const isInWishlist = wishlistItems?.some((item) => item.product_id === product.id);

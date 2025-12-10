@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Package, MapPin, Phone } from 'lucide-react';
 import Link from 'next/link';
+import { DateDisplay } from '@/components/ui/date-display';
 
 const orderStatusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
   PENDING: { label: 'Pendiente', variant: 'outline' },
@@ -40,16 +41,6 @@ function OrderDetailContent() {
       style: 'currency',
       currency,
     }).format(price);
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('es-ES', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
   };
 
   if (isLoading) {
@@ -104,7 +95,19 @@ function OrderDetailContent() {
           <h2 className="text-2xl font-bold">
             Pedido #{order.order_display_number || order.order_number}
           </h2>
-          <p className="text-muted-foreground">Realizado el {formatDate(order.created_at)}</p>
+          <p className="text-muted-foreground">
+            Realizado el{' '}
+            <DateDisplay
+              date={order.created_at}
+              options={{
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              }}
+            />
+          </p>
         </div>
         <Badge variant={status.variant} className="text-lg px-4 py-2">
           {status.label}
@@ -163,7 +166,16 @@ function OrderDetailContent() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Fecha</span>
-                  <span>{formatDate(order.created_at)}</span>
+                  <DateDisplay
+                    date={order.created_at}
+                    options={{
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    }}
+                  />
                 </div>
               </div>
             </CardContent>

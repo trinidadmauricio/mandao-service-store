@@ -7,9 +7,11 @@
 import { useTenant } from '@/providers/tenant-provider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useCurrentDate } from '@/lib/hooks/use-client-date';
 
 export default function TermsPage() {
   const { tenant, storefront, isLoading } = useTenant();
+  const currentDate = useCurrentDate();
 
   if (isLoading) {
     return (
@@ -25,9 +27,10 @@ export default function TermsPage() {
   }
 
   const storeName = tenant?.name || 'Mandao Store';
+  const dateText = currentDate ? `Última actualización: ${currentDate}` : 'Última actualización: -';
   const termsContent = storefront?.terms || `TÉRMINOS Y CONDICIONES DE USO
 
-Última actualización: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+${dateText}
 
 1. ACEPTACIÓN DE LOS TÉRMINOS
 

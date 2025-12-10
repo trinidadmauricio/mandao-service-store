@@ -4,6 +4,8 @@
 
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { wishlistService } from '@/lib/api/services/wishlist.service';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,6 +17,7 @@ import { useCartStore } from '@/lib/store/cart-store';
 import Link from 'next/link';
 
 export default function WishlistPage() {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const addItem = useCartStore((state) => state.addItem);
 
@@ -24,14 +27,7 @@ export default function WishlistPage() {
     retry: false, // No reintentar si falla con 401
   });
 
-  // Si hay error 401, redirigir a login
-  if (error && (error as any)?.response?.status === 401) {
-    if (typeof window !== 'undefined') {
-      window.location.href = '/login?redirect=/account/wishlist';
-    }
-    return null;
-  }
-
+  // Todos los hooks deben estar antes de cualquier return condicional
   const removeMutation = useMutation({
     mutationFn: ({ productId, variantId }: { productId: string; variantId?: string }) =>
       wishlistService.removeFromWishlist(productId, variantId),
@@ -39,6 +35,27 @@ export default function WishlistPage() {
       queryClient.invalidateQueries({ queryKey: ['wishlist'] });
     },
   });
+
+  // Si hay error 401, redirigir a login (solo en el cliente)
+  useEffect(() => {
+    if (error && (error as any)?.response?.status === 401) {
+      router.push('/login?redirect=/account/wishlist');
+    }
+  }, [error, router]);
+
+  // Si hay error 401, mostrar loading mientras se redirige
+  if (error && (error as any)?.response?.status === 401) {
+    return (
+      <div>
+        <Skeleton className="h-8 w-64 mb-6" />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Skeleton key={i} className="h-96" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   const handleAddToCart = async (productId: string, variantId?: string) => {
     try {

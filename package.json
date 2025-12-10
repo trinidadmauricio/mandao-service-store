@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "PORT=3002 nodemon",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
+    "nodemon": "^3.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",

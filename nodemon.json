@@ -1,0 +1,35 @@
+{
+  "watch": [
+    "app",
+    "components",
+    "lib",
+    "types",
+    "providers",
+    "templates",
+    "next.config.js",
+    "tailwind.config.ts",
+    "tsconfig.json",
+    ".env",
+    ".env.local"
+  ],
+  "ext": "ts,tsx,js,jsx,json,css",
+  "ignore": [
+    "node_modules",
+    ".next",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/__tests__/**",
+    "**/__mocks__/**"
+  ],
+  "exec": "next dev",
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": "3002"
+  },
+  "delay": 1000,
+  "verbose": true
+}
+

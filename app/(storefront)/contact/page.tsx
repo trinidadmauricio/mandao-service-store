@@ -91,7 +91,7 @@ export default function ContactPage() {
                   <div>
                     <p className="font-semibold">Email</p>
                     <p className="text-sm text-muted-foreground">
-                      {tenant?.settings?.contact_email || 'contacto@tienda.com'}
+                      contacto@{tenant?.name?.toLowerCase().replace(/\s+/g, '') || 'tienda'}.com
                     </p>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                   <div>
                     <p className="font-semibold">Teléfono</p>
                     <p className="text-sm text-muted-foreground">
-                      {tenant?.settings?.contact_phone || 'No disponible'}
+                      No disponible
                     </p>
                   </div>
                 </div>
@@ -120,9 +120,11 @@ export default function ContactPage() {
                               );
                             }
                             if ('open' in hours && 'close' in hours) {
+                              const openTime = String(hours.open);
+                              const closeTime = String(hours.close);
                               return (
                                 <p key={day}>
-                                  {day.charAt(0).toUpperCase() + day.slice(1)}: {hours.open} - {hours.close}
+                                  {day.charAt(0).toUpperCase() + day.slice(1)}: {openTime} - {closeTime}
                                 </p>
                               );
                             }

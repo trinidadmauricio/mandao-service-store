@@ -4,6 +4,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTenant } from '@/providers/tenant-provider';
 import { Separator } from '@/components/ui/separator';
@@ -29,6 +30,11 @@ const footerLinks = {
 
 export function Footer() {
   const { tenant, isLoading } = useTenant();
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   if (isLoading) {
     return (
@@ -40,7 +46,6 @@ export function Footer() {
     );
   }
 
-  const currentYear = new Date().getFullYear();
   const storeName = tenant?.name || 'Mandao Store';
 
   return (
@@ -111,7 +116,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} {storeName}. Todos los derechos reservados.
+            © {currentYear ?? new Date().getFullYear()} {storeName}. Todos los derechos reservados.
           </p>
           <p className="text-sm text-muted-foreground">
             Powered by{' '}

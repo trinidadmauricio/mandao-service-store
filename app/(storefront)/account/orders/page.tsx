@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ProductPagination } from '@/components/products/product-pagination';
+import { DateDisplay } from '@/components/ui/date-display';
 
 const orderStatusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
   PENDING: { label: 'Pendiente', variant: 'outline' },
@@ -53,14 +54,6 @@ export default function OrdersPage() {
       style: 'currency',
       currency,
     }).format(price);
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('es-ES', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
   };
 
   if (isLoading) {
@@ -138,7 +131,14 @@ export default function OrdersPage() {
                         Pedido #{order.order_display_number || order.order_number}
                       </CardTitle>
                       <p className="text-sm text-muted-foreground mt-1">
-                        {formatDate(order.created_at)}
+                        <DateDisplay
+                          date={order.created_at}
+                          options={{
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          }}
+                        />
                       </p>
                     </div>
                     <Badge variant={status.variant}>{status.label}</Badge>
