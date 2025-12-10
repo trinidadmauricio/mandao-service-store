@@ -19,9 +19,16 @@ function getSubdomain(hostname: string): string | null {
     return null; // En dev, se puede usar header o query param
   }
 
+  // Ignorar dominios de Railway (contienen .up.railway.app)
+  // Estos dominios no son subdomains de tenant, son dominios de la plataforma
+  if (hostname.includes(".up.railway.app")) {
+    return null;
+  }
+
   const parts = hostname.split(".");
   // Ejemplo: mitienda.mandao.com -> mitienda
   // Ejemplo: localhost -> null
+  // Ejemplo: mandao-service-store-production.up.railway.app -> null (ya manejado arriba)
   if (parts.length >= 3) {
     return parts[0];
   }
@@ -90,7 +97,7 @@ export async function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const subdomain = getSubdomain(hostname);
 
-  // Si no hay subdominio, permitir acceso (puede ser dominio principal o localhost)
+  // Si no hay subdominio, permitir acceso (puede ser dominio principal, localhost, o Railway)
   if (!subdomain) {
     // En desarrollo, usar 'dev' como subdomain por defecto
     if (process.env.NODE_ENV === "development") {
@@ -102,8 +109,23 @@ export async function middleware(request: NextRequest) {
       });
       return response;
     }
-    // En producción sin subdominio, redirigir o mostrar error
-    return NextResponse.next();
+    
+    // En producción sin subdominio (Railway, dominio principal, etc.)
+    // Permitir acceso - el TenantProvider manejará la obtención del tenant
+    // desde cookies, headers, o tenant por defecto
+    const response = NextResponse.next();
+    
+    // Si hay un tenant por defecto configurado, establecerlo en cookies
+    const defaultTenantId = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID;
+    if (defaultTenantId) {
+      response.cookies.set("tenant_id", defaultTenantId, {
+        path: "/",
+        maxAge: 60 * 60 * 24, // 24 horas
+        sameSite: "lax",
+      });
+    }
+    
+    return response;
   }
 
   // Resolver tenant

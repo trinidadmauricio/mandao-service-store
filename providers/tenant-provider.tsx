@@ -31,14 +31,20 @@ export function TenantProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(true);
       setError(null);
       
-      // En desarrollo, si no hay tenant_id en cookies, usar 'dev' como subdomain por defecto
+      // Obtener tenant_id y subdomain de cookies
       const tenantId = Cookies.get('tenant_id');
       const subdomain = Cookies.get('subdomain') || (process.env.NODE_ENV === 'development' ? 'dev' : null);
       
+      // Si hay tenant_id en cookies, usar storefrontService que automáticamente envía el header
+      if (tenantId) {
+        const config = await storefrontService.getConfig();
+        setTenant(config.tenant);
+        setStorefront(config.storefront);
+        return;
+      }
+      
       // Si hay subdomain pero no tenant_id, intentar obtener config usando subdomain
-      let config;
-      if (subdomain && !tenantId) {
-        // Hacer petición con header X-Subdomain
+      if (subdomain) {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
         const response = await fetch(`${apiUrl}/api/v1/storefront/config`, {
           headers: {
@@ -51,18 +57,31 @@ export function TenantProvider({ children }: { children: React.ReactNode }) {
         }
         
         const data = await response.json();
-        config = data.data;
-      } else {
-        config = await storefrontService.getConfig();
+        const config = data.data;
+        
+        setTenant(config.tenant);
+        setStorefront(config.storefront);
+        
+        // Guardar tenant_id en cookie para futuras peticiones
+        if (config.tenant?.id) {
+          Cookies.set('tenant_id', config.tenant.id, { expires: 7, path: '/' });
+        }
+        return;
       }
       
-      setTenant(config.tenant);
-      setStorefront(config.storefront);
-      
-      // Guardar tenant_id en cookie si no está
-      if (config.tenant?.id && !tenantId) {
-        Cookies.set('tenant_id', config.tenant.id, { expires: 7, path: '/' });
+      // Si no hay tenant_id ni subdomain, intentar usar tenant por defecto
+      const defaultTenantId = process.env.NEXT_PUBLIC_DEFAULT_TENANT_ID;
+      if (defaultTenantId) {
+        // Establecer tenant_id en cookie y reintentar
+        Cookies.set('tenant_id', defaultTenantId, { expires: 7, path: '/' });
+        const config = await storefrontService.getConfig();
+        setTenant(config.tenant);
+        setStorefront(config.storefront);
+        return;
       }
+      
+      // Si no hay ninguna forma de obtener el tenant, lanzar error
+      throw new Error('No tenant found. Please provide tenant_id, subdomain, or configure NEXT_PUBLIC_DEFAULT_TENANT_ID');
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to load tenant config'));
       console.error('Error loading tenant config:', err);
