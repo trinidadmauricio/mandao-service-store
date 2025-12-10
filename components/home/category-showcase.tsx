@@ -28,7 +28,7 @@ export function CategoryShowcase() {
   if (isLoading) {
     return (
       <section className="py-12">
-        <div className="container">
+        <div className="container mx-auto">
           <h2 className="mb-8 text-3xl font-bold">Categorías</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
@@ -49,7 +49,7 @@ export function CategoryShowcase() {
 
   return (
     <section className="py-12">
-      <div className="container">
+      <div className="container mx-auto">
         <h2 className="mb-8 text-3xl font-bold">Explorar por Categoría</h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {displayCategories.map((category) => (

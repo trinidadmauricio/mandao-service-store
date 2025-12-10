@@ -41,6 +41,14 @@ export function ProductInfo({ product, currency }: ProductInfoProps) {
     queryKey: ['wishlist'],
     queryFn: () => wishlistService.getWishlist(),
     enabled: isAuthenticated,
+    retry: false, // No reintentar si falla con 401
+    onError: (error: any) => {
+      // Si es 401, el usuario no está autenticado, simplemente no mostrar wishlist
+      if (error?.response?.status === 401) {
+        // Silenciar el error, el usuario simplemente no tiene wishlist
+        return;
+      }
+    },
   });
 
   const isInWishlist = wishlistItems?.some(

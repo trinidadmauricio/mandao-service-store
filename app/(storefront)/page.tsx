@@ -5,7 +5,7 @@ import { CategoryShowcase } from '@/components/home/category-showcase';
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <HeroBanner />
       </div>
       <FeaturedProducts />

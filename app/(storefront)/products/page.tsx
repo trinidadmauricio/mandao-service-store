@@ -80,7 +80,7 @@ function ProductsPageContent() {
 
   if (isLoading) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <div className="mb-8">
           <Skeleton className="h-8 w-64 mb-2" />
           <Skeleton className="h-4 w-96" />
@@ -108,7 +108,7 @@ function ProductsPageContent() {
   const totalPages = products?.totalPages || 0;
 
   return (
-    <div className="container py-8">
+    <div className="container mx-auto py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Productos</h1>
         <p className="text-muted-foreground">
@@ -147,7 +147,7 @@ export default function ProductsPage() {
   return (
     <Suspense
       fallback={
-        <div className="container py-8">
+        <div className="container mx-auto py-8">
           <div className="mb-8">
             <Skeleton className="h-8 w-64 mb-2" />
             <Skeleton className="h-4 w-96" />

@@ -71,7 +71,7 @@ function LoginPageContent() {
 
   if (authLoading) {
     return (
-      <div className="container flex items-center justify-center min-h-[60vh]">
+      <div className="container mx-auto flex items-center justify-center min-h-[60vh]">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
@@ -82,7 +82,7 @@ function LoginPageContent() {
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-[60vh] py-12">
+    <div className="container mx-auto flex items-center justify-center min-h-[60vh] py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Iniciar Sesión</CardTitle>
@@ -167,7 +167,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="container flex items-center justify-center min-h-[60vh]">
+        <div className="container mx-auto flex items-center justify-center min-h-[60vh]">
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
         </div>
       }

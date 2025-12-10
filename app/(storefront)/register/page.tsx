@@ -88,7 +88,7 @@ export default function RegisterPage() {
 
   if (authLoading) {
     return (
-      <div className="container flex items-center justify-center min-h-[60vh]">
+      <div className="container mx-auto flex items-center justify-center min-h-[60vh]">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
@@ -100,7 +100,7 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <div className="container flex items-center justify-center min-h-[60vh] py-12">
+      <div className="container mx-auto flex items-center justify-center min-h-[60vh] py-12">
         <Card className="w-full max-w-md">
           <CardContent className="py-12 text-center">
             <CheckCircle2 className="mx-auto h-16 w-16 text-green-600 mb-4" />
@@ -115,7 +115,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-[60vh] py-12">
+    <div className="container mx-auto flex items-center justify-center min-h-[60vh] py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Crear Cuenta</CardTitle>

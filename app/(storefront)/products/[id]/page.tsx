@@ -37,7 +37,7 @@ function ProductDetailContent() {
 
   if (isLoading) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <Button variant="ghost" asChild className="mb-6">
           <Link href="/products">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -58,7 +58,7 @@ function ProductDetailContent() {
 
   if (error || !product) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <Button variant="ghost" asChild className="mb-6">
           <Link href="/products">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -93,7 +93,7 @@ function ProductDetailContent() {
   });
 
   return (
-    <div className="container py-8">
+        <div className="container mx-auto py-8">
       <Button variant="ghost" asChild className="mb-6">
         <Link href="/products">
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -229,7 +229,7 @@ export default function ProductDetailPage() {
   return (
     <Suspense
       fallback={
-        <div className="container py-8">
+        <div className="container mx-auto py-8">
           <Skeleton className="h-10 w-32 mb-6" />
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Skeleton className="aspect-square w-full" />

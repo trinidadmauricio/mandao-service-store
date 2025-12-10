@@ -32,7 +32,7 @@ export function FeaturedProducts() {
 
   return (
     <section className="py-12">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h2 className="text-3xl font-bold">Productos Destacados</h2>

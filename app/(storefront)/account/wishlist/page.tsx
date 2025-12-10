@@ -18,10 +18,19 @@ export default function WishlistPage() {
   const queryClient = useQueryClient();
   const addItem = useCartStore((state) => state.addItem);
 
-  const { data: wishlistItems, isLoading } = useQuery({
+  const { data: wishlistItems, isLoading, error } = useQuery({
     queryKey: ['wishlist'],
     queryFn: () => wishlistService.getWishlist(),
+    retry: false, // No reintentar si falla con 401
   });
+
+  // Si hay error 401, redirigir a login
+  if (error && (error as any)?.response?.status === 401) {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login?redirect=/account/wishlist';
+    }
+    return null;
+  }
 
   const removeMutation = useMutation({
     mutationFn: ({ productId, variantId }: { productId: string; variantId?: string }) =>

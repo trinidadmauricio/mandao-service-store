@@ -43,7 +43,7 @@ function SearchResultsContent() {
 
   if (isLoading) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <div className="mb-8">
           <Skeleton className="h-8 w-64 mb-2" />
           <Skeleton className="h-4 w-96" />
@@ -55,7 +55,7 @@ function SearchResultsContent() {
 
   if (!query.trim()) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <Card>
           <CardContent className="py-12 text-center">
             <Search className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
@@ -76,7 +76,7 @@ function SearchResultsContent() {
 
   if (total === 0) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2">
             Resultados para &quot;{query}&quot;
@@ -100,7 +100,7 @@ function SearchResultsContent() {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container mx-auto py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">
           Resultados para &quot;{query}&quot;
@@ -198,7 +198,7 @@ export default function SearchPage() {
   return (
     <Suspense
       fallback={
-        <div className="container py-8">
+        <div className="container mx-auto py-8">
           <div className="mb-8">
             <Skeleton className="h-8 w-64 mb-2" />
             <Skeleton className="h-4 w-96" />

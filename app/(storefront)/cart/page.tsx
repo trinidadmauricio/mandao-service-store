@@ -58,7 +58,7 @@ export default function CartPage() {
 
   if (isLoading) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-8">Carrito de Compras</h1>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
@@ -96,7 +96,7 @@ export default function CartPage() {
 
   if (!cart || cart.items.length === 0) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-8">Carrito de Compras</h1>
         <Card>
           <CardContent className="py-12 text-center">
@@ -118,7 +118,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-8">Carrito de Compras</h1>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">

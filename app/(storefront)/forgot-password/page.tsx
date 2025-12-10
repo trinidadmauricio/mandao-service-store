@@ -50,7 +50,7 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="container flex items-center justify-center min-h-[60vh] py-12">
+      <div className="container mx-auto flex items-center justify-center min-h-[60vh] py-12">
         <Card className="w-full max-w-md">
           <CardContent className="py-12 text-center">
             <CheckCircle2 className="mx-auto h-16 w-16 text-green-600 mb-4" />
@@ -71,7 +71,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-[60vh] py-12">
+    <div className="container mx-auto flex items-center justify-center min-h-[60vh] py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Recuperar Contraseña</CardTitle>

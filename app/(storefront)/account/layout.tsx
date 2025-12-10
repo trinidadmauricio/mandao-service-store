@@ -46,7 +46,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   };
 
   if (authLoading) {
-    return <div className="container py-8">Cargando...</div>;
+    return <div className="container mx-auto py-8">Cargando...</div>;
   }
 
   if (!isAuthenticated) {
@@ -54,7 +54,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   }
 
   return (
-    <div className="container py-8">
+    <div className="container mx-auto py-8">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
         {/* Sidebar */}
         <aside className="lg:col-span-1">

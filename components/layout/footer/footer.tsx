@@ -33,7 +33,7 @@ export function Footer() {
   if (isLoading) {
     return (
       <footer className="border-t bg-muted/50">
-        <div className="container py-8 px-4">
+        <div className="container mx-auto py-8 px-4">
           <div className="h-32 animate-pulse rounded bg-muted" />
         </div>
       </footer>
@@ -45,7 +45,7 @@ export function Footer() {
 
   return (
     <footer className="border-t bg-muted/50">
-      <div className="container py-12 px-4">
+      <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Información de la Tienda */}
           <div className="space-y-4">

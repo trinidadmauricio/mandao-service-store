@@ -19,7 +19,7 @@ function OrderConfirmationContent() {
 
   if (!isSuccess) {
     return (
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <Card>
           <CardContent className="py-12 text-center">
             <h1 className="text-2xl font-bold mb-4">Orden no encontrada</h1>
@@ -36,7 +36,7 @@ function OrderConfirmationContent() {
   }
 
   return (
-    <div className="container py-8">
+        <div className="container mx-auto py-8">
       <div className="max-w-2xl mx-auto">
         <Card>
           <CardContent className="py-12 text-center">
@@ -74,7 +74,7 @@ export default function OrderConfirmationPage() {
   return (
     <Suspense
       fallback={
-        <div className="container py-8">
+        <div className="container mx-auto py-8">
           <Card>
             <CardContent className="py-12 text-center">
               <p className="text-muted-foreground">Cargando...</p>
