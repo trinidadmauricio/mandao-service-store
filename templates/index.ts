@@ -4,6 +4,9 @@
  */
 
 import { classicTemplate } from './classic';
+import { modernTemplate } from './modern';
+import { minimalTemplate } from './minimal';
+import { fashionTemplate } from './fashion';
 
 export type TemplateName = 'classic' | 'modern' | 'minimal' | 'fashion';
 
@@ -33,14 +36,11 @@ export interface TemplateConfig {
 }
 
 // Registry de templates
-// Solo incluir templates implementados
-export const templates: Partial<Record<TemplateName, TemplateConfig>> & {
-  classic: TemplateConfig;
-} = {
+export const templates: Record<TemplateName, TemplateConfig> = {
   classic: classicTemplate,
-  // modern: modernTemplate, // TODO: Implementar
-  // minimal: minimalTemplate, // TODO: Implementar
-  // fashion: fashionTemplate, // TODO: Implementar
+  modern: modernTemplate,
+  minimal: minimalTemplate,
+  fashion: fashionTemplate,
 };
 
 /**
