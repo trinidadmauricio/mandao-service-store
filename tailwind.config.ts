@@ -17,8 +17,12 @@ const config: Config = {
     },
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+        },
+        foreground: {
+          DEFAULT: 'hsl(var(--foreground))',
+        },
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
@@ -47,9 +51,15 @@ const config: Config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        border: {
+          DEFAULT: 'hsl(var(--border))',
+        },
+        input: {
+          DEFAULT: 'hsl(var(--input))',
+        },
+        ring: {
+          DEFAULT: 'hsl(var(--ring))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
